@@ -44,6 +44,6 @@ server.listen(PORT, () => {
 
 // Captura o evento beforeExit para encerrar o servidor corretamente
 process.on('beforeExit', () => {
-  clearInterval(timerId); // Para o intervalo que atualiza o tempo total
+  clearInterval(timerId); // Para o intervalo que atualiza o tempo total.
   server.close(); // Encerra o servidor corretamente
 });
