@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -39,13 +38,18 @@ io.on('connection', (socket) => {
 const rootDir = path.join(__dirname, '/');
 app.use(express.static(rootDir));
 
-// Inicia o servidor para ouvir conexões na porta 3000
-server.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+// Verifica se a variável de ambiente está definida para iniciar o servidor
+if (process.env.START_SERVER === 'true') {
+  // Inicia o servidor para ouvir conexões na porta 3000
+  server.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
 
-// Captura o evento beforeExit para encerrar o servidor corretamente
-process.on('beforeExit', () => {
-  clearInterval(timerId); // Para o intervalo que atualiza o tempo total
-  server.close(); // Encerra o servidor corretamente
-});
+  // Captura o evento beforeExit para encerrar o servidor corretamente
+  process.on('beforeExit', () => {
+    clearInterval(timerId); // Para o intervalo que atualiza o tempo total
+    server.close(); // Encerra o servidor corretamente
+  });
+} else {
+  console.log('Server not started. START_SERVER environment variable not set.');
+}
