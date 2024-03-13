@@ -34,9 +34,10 @@ io.on('connection', (socket) => {
   });
 });
 
-// Se estiver em produção, inicie o servidor para ouvir conexões
-if (process.env.NODE_ENV === 'production') {
-  server.listen(3000, () => {
-    console.log('Server is running on port 3000');
-  });
-}
+// Lê a variável de ambiente PORT, ou usa a porta 3000 como padrão
+const PORT = process.env.PORT || 3000;
+
+// Inicia o servidor para ouvir conexões na porta configurada
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
