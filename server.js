@@ -2,6 +2,7 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +34,10 @@ io.on('connection', (socket) => {
     io.emit('updateClientCount', clientCount);
   });
 });
+
+// Define o diretório raiz para servir arquivos estáticos
+const rootDir = path.join(__dirname, '/');
+app.use(express.static(rootDir));
 
 // Inicia o servidor para ouvir conexões na porta 3000
 server.listen(3000, () => {
