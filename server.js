@@ -34,16 +34,16 @@ io.on('connection', (socket) => {
   });
 });
 
-// Verifica se é a primeira execução do script
-if (process.env.FIRST_RUN !== 'true') {
-  // Inicia o servidor para ouvir conexões na porta 3000 apenas na segunda execução
-  server.listen(3000, () => {
-    console.log('Server is running on port 3000');
+// Se estiver em um ambiente de build, não inicie o servidor
+if (process.env.NODE_ENV !== 'build') {
+  // Define a porta do servidor
+  const PORT = process.env.PORT || 3000;
+
+  // Inicia o servidor para ouvir conexões na porta configurada
+  server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
   });
 }
-
-// Configura a variável de ambiente FIRST_RUN para true na primeira execução
-process.env.FIRST_RUN = 'true';
 
 // Captura o evento beforeExit para encerrar o servidor corretamente
 process.on('beforeExit', () => {
