@@ -48,5 +48,5 @@ if (process.env.NODE_ENV !== 'build') {
 // Captura o evento beforeExit para encerrar o servidor corretamente
 process.on('beforeExit', () => {
   clearInterval(timerId); // Para o intervalo que atualiza o tempo total
-  server.close(); // Encerra o servidor corretamente
+  server.close(); // Encerra o servidor corretament
 });
