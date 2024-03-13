@@ -34,26 +34,16 @@ io.on('connection', (socket) => {
   });
 });
 
-// Lê a variável de ambiente PORT, ou usa a porta 3000 como padrão
-const PORT = process.env.PORT || 3000;
-
-// Verifica se o servidor foi iniciado anteriormente
-let isFirstStart = true;
-
-// Inicia o servidor para ouvir conexões na porta configurada somente na segunda vez
-function startServer() {
-  server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Verifica se é a primeira execução do script
+if (process.env.FIRST_RUN !== 'true') {
+  // Inicia o servidor para ouvir conexões na porta 3000 apenas na segunda execução
+  server.listen(3000, () => {
+    console.log('Server is running on port 3000');
   });
 }
 
-// Se isFirstStart for verdadeiro, não inicie o servidor na primeira vez
-if (!isFirstStart) {
-  startServer();
-}
-
-// Configura isFirstStart para falso para as próximas execuções
-isFirstStart = false;
+// Configura a variável de ambiente FIRST_RUN para true na primeira execução
+process.env.FIRST_RUN = 'true';
 
 // Captura o evento beforeExit para encerrar o servidor corretamente
 process.on('beforeExit', () => {
