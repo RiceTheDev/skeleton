@@ -1,0 +1,31 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💀</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <img src="skeleton.gif" alt="mrskell" id="mrskell">
+
+  <div id="tot">total time: <span id="totalTime">0</span> seconds</div>
+  <div id="tot2">people currently waiting with mr skell: <span id="clientCount">0</span></div>
+
+  <script>
+    const socket = io();
+
+    // Atualiza o tempo total exibido na página
+    socket.on('updateTotalTime', (totalTime) => {
+      document.getElementById('totalTime').textContent = totalTime;
+    });
+
+    // Atualiza o número de pessoas atualmente esperando
+    socket.on('updateClientCount', (clientCount) => {
+      document.getElementById('clientCount').textContent = clientCount;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+body {
+  background-color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column; /* Adicionamos esta propriedade para organizar os elementos em uma coluna */
+}
+
+#mrskell {
+  width: 300px;
+  height: 300px;
+}
+
+#tot,
+#tot2 {
+  color: white;
+  margin-top: 5px; /* Adicionamos uma margem superior para separar os elementos */
+}
