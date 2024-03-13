@@ -40,6 +40,9 @@ const rootDir = path.join(__dirname, '/');
 app.use(express.static(rootDir));
 
 // Inicia o servidor para ouvir conexões na porta 3000
+server.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
 
 // Captura o evento beforeExit para encerrar o servidor corretamente
 process.on('beforeExit', () => {
