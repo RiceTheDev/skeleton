@@ -34,14 +34,9 @@ io.on('connection', (socket) => {
   });
 });
 
-// Rota padrão para servir o arquivo index.html
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-// Configura o servidor para servir arquivos estáticos
-app.use(express.static('public'));
-
-server.listen(3500, () => {
-  console.log('Server is running on port 3000');
-});
+// Se estiver em produção, inicie o servidor para ouvir conexões
+if (process.env.NODE_ENV === 'production') {
+  server.listen(3000, () => {
+    console.log('Server is running on port 3000');
+  });
+}
