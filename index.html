@@ -1,30 +1,49 @@
-<!-- public/index.html -->
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>💀</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.socket.io/4.1.3/socket.io.min.js"></script>
 </head>
 <body>
-  <img src="skeleton.gif" alt="mrskell" id="mrskell">
+  <style>
+body {
+  background-color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column; /* Adicionamos esta propriedade para organizar os elementos em uma coluna */
+}
 
+#mrskell {
+  width: 300px;
+  height: 300px;
+}
+
+#tot,
+#tot2 {
+  color: white;
+  margin-top: 5px; /* Adicionamos uma margem superior para separar os elementos */
+}
+</style>
+  <img src="https://i.imgur.com/KlJshIT.gif" alt="mrskell" id="mrskell">
   <div id="tot">total time: <span id="totalTime">0</span> seconds</div>
   <div id="tot2">people currently waiting with mr skell: <span id="clientCount">0</span></div>
-
   <script>
     const socket = io();
-
-    // Atualiza o tempo total exibido na página
-    socket.on('updateTotalTime', (totalTime) => {
-      document.getElementById('totalTime').textContent = totalTime;
-    });
-
-    // Atualiza o número de pessoas atualmente esperando
-    socket.on('updateClientCount', (clientCount) => {
-      document.getElementById('clientCount').textContent = clientCount;
+    socket.on('connect', () => {
+      console.log('Connected to server');
+      socket.on('updateTotalTime', (totalTime) => {
+        document.getElementById('totalTime').textContent = totalTime;
+      });
+      socket.on('updateClientCount', (clientCount) => {
+        document.getElementById('clientCount').textContent = clientCount;
+      });
     });
   </script>
 </body>
