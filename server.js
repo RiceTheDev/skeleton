@@ -38,16 +38,19 @@ io.on('connection', (socket) => {
 const rootDir = path.join(__dirname, '/');
 app.use(express.static(rootDir));
 
-// Define a porta correta para o Netlify (ou usa a porta 3000 localmente)
-const PORT = process.env.PORT || 3000;
-
-// Inicia o servidor para ouvir conexões na porta correta
-server.listen(PORT, () => {
-  console.log(`Server running onn port ${PORT}`);
-});
+// Verifica se estamos em um ambiente de desenvolvimento
+if (process.env.NODE_ENV !== 'production') {
+  // Inicia o servidor para ouvir conexões na porta 3000
+  const PORT = process.env.PORT || 3000;
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 // Captura o evento beforeExit para encerrar o servidor corretamente
 process.on('beforeExit', () => {
   clearInterval(timerId); // Para o intervalo que atualiza o tempo total
-  server.close(); // Encerra o servidor corretamente
 });
+
+// Exporta o app para que possa ser usado em outros arquivos (opcional)
+module.exports = app;
